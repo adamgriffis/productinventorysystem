@@ -27,6 +27,7 @@ module ProductInventoryApi
 
     # Mount all v1 resource APIs here.
     mount ProductInventoryApi::ProductsApi
+    mount ProductInventoryApi::InventoriesApi
     
     # Enable swagger documentation at /api/v1/swagger_doc. This endpoint spits out JSON that can be read by
     # the npm module Swagger-UI, which allows browsing and testing of the API.
