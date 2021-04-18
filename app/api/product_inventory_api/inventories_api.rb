@@ -45,51 +45,21 @@ module ProductInventoryApi
           # so I've created a spearate path specifically for quantity that will be shared with the adjust case (keeping in mind that this is not the high-scale use case in part 2)
           if params.has_key?(:quantity)
             inventory = Inventory.find params[:id]
-            inventory.update_quantity(params[:quantity])
+            inventory.update_quantity!(params[:quantity])
+          end
+        end
+
+        # put /inventories/:id/adjust
+        params do 
+          requires :adjustment, type: Integer, desc: "The adjustment (negative or positive) for the indicated inventory"
+        end
+        put 'adjust' do 
+          if params.has_key?(:adjustment)
+            inventory = Inventory.find params[:id]
+            inventory.adjust_quqnaity!(params[:adjustment])
           end
         end
       end
-
-      # # POST /products
-      # desc 'Create a product with the given information.'
-      # params do
-      #   use :product_create_update_params
-      # end
-      # post do
-      #   create_endpoint(Product, params)
-      # end
-
-      # # search products
-      # desc 'Search the products by search keys'
-      # params do 
-      #   use :search_terms
-      #   use :pagination
-      # end
-      # get 'search' do 
-      #   list_endpoint(Product, product_json_options, base_record_set: Product.search_style(params[:style]).search_brand(params[:brand]).search_type(params[:type]))
-      # end
-
-      # params do
-      #   requires :id, type: Integer, desc: 'The product ID.'
-      # end
-      # route_param :id do
-      #   # GET /products/id
-      #   desc "Returns detail about a particular product"
-      #   get do
-      #     product = Product.find params[:id]
-
-      #     product.as_json(product_json_options)
-      #   end
-
-      #   # put /products/id
-      #   desc 'updates a product with the given information.'
-      #   params do
-      #     use :product_create_update_params
-      #   end
-      #   put do
-      #     update_endpoint(Product, params)
-      #   end
-      # end
     end
     
   end

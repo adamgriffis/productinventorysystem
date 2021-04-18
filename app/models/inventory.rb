@@ -24,8 +24,20 @@ class Inventory < ApplicationRecord
   validates :length, numericality: { greater_than: 0 }
   validates :height, numericality: { greater_than: 0 }
 
-  def update_quantity(new_quantity)
+  def update_quantity!(new_quantity)
     self.with_lock do # this creates a FOR UPDATE lock and a transaction for the item
+      raise "Cannot adjust quantity to be less than 0" if new_quantity < 0 
+
+      self.update!(quantity: new_quantity) # validation will catch the case where this will make quantity less than 0
+    end
+  end
+
+  def adjust_quqnaity!(adjustment)
+    # we need to lock before we read the quantity because otherwise the adjustment could be applying to an old quantity
+    self.with_lock do # this creates a FOR UPDATE lock and a transaction for the item, the nested transaction in update_quantity doesn't matter, the outside transaction will "win"
+      existing_quantity = self.quantity
+      new_quantity = existing_quantity + adjustment
+
       self.update!(quantity: new_quantity) # validation will catch the case where this will make quantity less than 0
     end
   end

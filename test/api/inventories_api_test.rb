@@ -182,110 +182,74 @@ class InventoriesApiTest < ActionDispatch::IntegrationTest
     assert_response :error 
   end
 
-  # test "GET /api/products/search" do # cases where we find results
+  test "PUT /api/inventories/id/adjust success" do
 
-  #   get "/api/products/search", headers: { "Authorization": "Bearer #{@jwt_token}"}, params: {type: @clothing.type}
+    expected_qty = @clothing_small.quantity - 5
+    put "/api/inventories/#{@clothing_small.id}/adjust", headers: { "Authorization": "Bearer #{@jwt_token}"}, params: {adjustment: -5}
+  
+    assert_response :success
+
+    inv = @clothing_small.reload
+    assert !inv.nil?
+    assert inv.quantity == expected_qty
     
-  #   assert_response :success
-  #   assert !response.body.nil?
+    expected_qty = @clothing_small.quantity + 10
+    put "/api/inventories/#{@clothing_small.id}/adjust", headers: { "Authorization": "Bearer #{@jwt_token}"}, params: {adjustment: 10}
+  
+    assert_response :success
 
-  #   assert JSON.parse(response.body).include?(@clothing.as_json({only: [:id, :description, :created_at, :updated_at, :url], methods: [:product_name, :type, :style, :brand, :shipping_price, :note]}))
-  #   assert JSON.parse(response.body).length == 1
-
-  #   get "/api/products/search", headers: { "Authorization": "Bearer #{@jwt_token}"}, params: {type: @clothing.type, style: @clothing.style}
-
-  #   assert_response :success
-  #   assert !response.body.nil?
-
-  #   assert JSON.parse(response.body).include?(@clothing.as_json({only: [:id, :description, :created_at, :updated_at, :url], methods: [:product_name, :type, :style, :brand, :shipping_price, :note]}))
-  #   assert JSON.parse(response.body).length == 1
-
-  #   get "/api/products/search", headers: { "Authorization": "Bearer #{@jwt_token}"}, params: {brand: @clothing.brand}
+    inv = @clothing_small.reload
+    assert !inv.nil?
+    assert inv.quantity == expected_qty
     
-  #   assert_response :success
-  #   assert !response.body.nil?
+  end
 
-  #   assert JSON.parse(response.body).include?(@clothing.as_json({only: [:id, :description, :created_at, :updated_at, :url], methods: [:product_name, :type, :style, :brand, :shipping_price, :note]}))
-  #   assert JSON.parse(response.body).length == 1
+  test "PUT /api/inventories/id/adjust failues" do    
 
-  #   @new_clothing = @clothing.dup
-  #   @new_clothing.style = "New Style"
-  #   @new_clothing.save
-
-  #   # new clothing will be excluded because of the style search
-  #   get "/api/products/search", headers: { "Authorization": "Bearer #{@jwt_token}"}, params: {brand: @clothing.brand, style: @clothing.style}
-    
-  #   assert_response :success
-  #   assert !response.body.nil?
-
-  #   assert JSON.parse(response.body).include?(@clothing.as_json({only: [:id, :description, :created_at, :updated_at, :url], methods: [:product_name, :type, :style, :brand, :shipping_price, :note]}))
-  #   assert JSON.parse(response.body).length == 1
-  # end
-
-  # test "GET /api/products/id" do
-
-  #   get "/api/products/#{@clothing.id}", headers: { "Authorization": "Bearer #{@jwt_token}"}
-
-  #   assert_response :success
-  #   assert !response.body.nil?
-
-  #   assert JSON.parse(response.body) == (@clothing.as_json({only: [:id, :description, :created_at, :updated_at, :url], methods: [:product_name, :type, :style, :brand, :shipping_price, :note]}))
-  # end
-
-  # test "GET /api/products/id fails due to user" do
-
-  #   get "/api/products/#{@toy.id}", headers: { "Authorization": "Bearer #{@jwt_token}"}
-    
-  #   assert_response :error
-  # end
-
-  # test "POST /api/products success" do
-
-  #   post "/api/products", headers: { "Authorization": "Bearer #{@jwt_token}"}, params: {name: "New Product", type: "New Type", style: "New Style", brand: "New Brand", shipping_price_cents: "200", note: "New Note", desc: "New Desc"}
+    put "/api/inventories/#{@clothing_small.id}/adjust", headers: { "Authorization": "Bearer #{@jwt_token}"}, params: {adjustment: (@clothing_small.quantity + 1)*-1}
   
-  #   assert_response :success
+    assert_response :error 
 
-  #   prod = Product.find_by(name: "New Product")
-  #   assert !prod.nil?
-  #   assert prod.type == "New Type"
-  #   assert prod.brand == "New Brand"
-  #   assert prod.style == "New Style"
-  # end
-
-  # test "POST /api/products failures" do
-
-  #   post "/api/products", headers: { "Authorization": "Bearer #{@jwt_token}"}, params: {name: @clothing.name, type: "New Type", style: "New Style", brand: "New Brand", shipping_price_cents: "200", note: "New Note", desc: "New Desc"}
+    put "/api/inventories/#{@clothing_small.id}/adjust", headers: { "Authorization": "Bearer #{@jwt_token}"}, params: {}
   
-  #   assert_response :error
+    assert_response :error 
+  end
 
-  #   assert JSON.parse(@response.body)['type'] == 'field'
-  #   assert JSON.parse(@response.body)['code'] == '500'
-  #   assert JSON.parse(@response.body)['details'][0]['messages'][0] == 'has already been taken'
+  test "PUT /api/inventories/id/adjust with high concurrency" do 
+    @clothing_small.update(quantity: 100000)
 
-  #   post "/api/products", headers: { "Authorization": "Bearer #{@jwt_token}"}, params: {type: "New Type", style: "New Style", brand: "New Brand", shipping_price_cents: "200", note: "New Note", desc: "New Desc"}
-  
-  #   assert_response :error
-  # end
+    # generate a random batch of adjustments 
+    adjustments = []
 
+    1000.times do 
+      adjustments << rand(-20..20) # 100 adjusments between -10 and 30
+    end
 
-  # test "PUT /api/products/id success" do
+    threads = []
+    fail_occurred = false
 
-  #   put "/api/products/#{@clothing.id}", headers: { "Authorization": "Bearer #{@jwt_token}"}, params: {name: "New Clothing", type: "New Type", style: "New Style", brand: "New Brand", shipping_price_cents: "200", note: "New Note", desc: "New Desc"}
-  
-  #   assert_response :success
+    #puts adjustments
 
-  #   prod = @clothing.reload
-  #   assert !prod.nil?
-  #   assert prod.name == "New Clothing"
-  #   assert prod.type == "New Type"
-  #   assert prod.brand == "New Brand"
-  #   assert prod.style == "New Style"
-  # end
+    (0..9).each do |concurr_index|
+      # start 10 concurrent threads, each will be processing 1/10 of the adjustment from above
+      threads << Thread.new do
+        adjustments.each_with_index do |quantity, index|
+          #puts "in thread #{concurr_index} #{index}"
+          if concurr_index == (index % 10) # 1 should only do 1, 2 -> 2, etc etc
+            put "/api/inventories/#{@clothing_small.id}/adjust", headers: { "Authorization": "Bearer #{@jwt_token}"}, params: {adjustment: quantity}
+            assert_response :success
+          end
+        end
+      end
+    end 
 
-  # test "PUT /api/products failures" do
-  #   put "/api/products/#{@clothing.id}", headers: { "Authorization": "Bearer #{@jwt_token}"}, params: {type: "New Type", style: "New Style", brand: "New Brand", shipping_price_cents: "200", note: "New Note", desc: "New Desc"}
-  
-  #   assert_response :error
-  # end
+    threads.each(&:join)
+
+    @clothing_small.reload
+
+    net_adjust = adjustments.sum
+
+    assert @clothing_small.quantity == (100000 + net_adjust)
+  end
 
 end
