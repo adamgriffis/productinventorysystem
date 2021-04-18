@@ -25,7 +25,7 @@ module ProductInventoryApi
         payload, header = JWT.decode bearer, ENV['JWT_SECRET'], true, options
 
         if payload['exp'] < Time.now.to_i
-          return user_not_authenticated
+          return {message: "User not authenticated"}
         end
 
         user_id = payload['user']['id']

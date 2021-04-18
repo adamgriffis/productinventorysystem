@@ -17,7 +17,7 @@ module ProductInventoryApi
 
       ActsAsTenant.current_tenant = user
 
-      return user_not_authenticated unless user
+      return {message: "User not authenticated"} unless user
     end
 
     rescue_from :all do |e|

@@ -14,7 +14,7 @@ module ProductInventoryApi
       if @user 
         { token: token(@user) }
       else
-        return user_not_authenticated
+        return {message: "User not authenticated"}
       end
     end
     
