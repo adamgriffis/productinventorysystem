@@ -25,12 +25,10 @@ ActiveAdmin.register User do
   end
 
   collection_action :import_csv, :method => :post do
-    puts "TESTTEST"
     csv_data = params[:dump][:file]
     csv_file = csv_data.read
 
     CSV.parse(csv_file, headers: true) do |row|
-      puts row
       user = User.where(id: row['id']).first
 
       user ||= User.new id: row['id']

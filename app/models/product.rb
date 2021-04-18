@@ -6,8 +6,6 @@ class Product < ApplicationRecord
   belongs_to :product_brand, foreign_key: "brand_id"
   belongs_to :product_style, foreign_key: "style_id"
 
-  validates_uniqueness_of :name, scope: :user_id
-
   validates :name, presence: true, length: {minimum: 1, maximum: 100}
   validates :user, presence: true
   validates_presence_of  :product_type
