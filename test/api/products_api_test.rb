@@ -91,13 +91,13 @@ class ProductsApiTest < ActionDispatch::IntegrationTest
 
   test "POST /api/products failures" do
 
-    post "/api/products", headers: { "Authorization": "Bearer #{@jwt_token}"}, params: {name: @clothing.name, type: "New Type", style: "New Style", brand: "New Brand", shipping_price_cents: "200", note: "New Note", desc: "New Desc"}
+    post "/api/products", headers: { "Authorization": "Bearer #{@jwt_token}"}, params: {name: @clothing.name, type: "New Type", style: "New Style", brand: "New Brand", shipping_price_cents: "-1", note: "New Note", desc: "New Desc"}
   
     assert_response :error
 
     assert JSON.parse(@response.body)['type'] == 'field'
     assert JSON.parse(@response.body)['code'] == '500'
-    assert JSON.parse(@response.body)['details'][0]['messages'][0] == 'has already been taken'
+    assert JSON.parse(@response.body)['details'][0]['messages'][0] == 'must be greater than or equal to 0'
 
     post "/api/products", headers: { "Authorization": "Bearer #{@jwt_token}"}, params: {type: "New Type", style: "New Style", brand: "New Brand", shipping_price_cents: "200", note: "New Note", desc: "New Desc"}
   

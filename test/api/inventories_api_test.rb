@@ -92,8 +92,8 @@ class InventoriesApiTest < ActionDispatch::IntegrationTest
         quantity: 100,
         color: "Red",
         size: "M",
-        sku: @clothing_small.sku, # duplicate SKU
-        weight: 10,
+        sku: @clothing_small.sku, 
+        weight: -1, # negative weight
         length: 3,
         width: 4,
         height: 5,
