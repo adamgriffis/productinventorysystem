@@ -1,0 +1,339 @@
+{
+	"info": {
+		"_postman_id": "a5a587a2-0407-40c4-943a-c9bfe22b1212",
+		"name": "ProductInventory",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get Products",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2MTg2OTA4ODMsImlhdCI6MTYxODY4NzI4MywiaXNzIjoiUFJPRF9JTlZFTlRPUlkiLCJ1c2VyIjp7ImlkIjoyM319.jOsthn1tHcOsQHPQa5KW6yg08nFZ-4PJx2gbbpLSFsY",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "https://protected-badlands-15455.herokuapp.com/api/products?page=2&limit=50",
+					"protocol": "https",
+					"host": [
+						"protected-badlands-15455",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"products"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "2"
+						},
+						{
+							"key": "limit",
+							"value": "50"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Inventories",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://protected-badlands-15455.herokuapp.com/api/inventories?page=2&limit=50",
+					"protocol": "https",
+					"host": [
+						"protected-badlands-15455",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"inventories"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "2"
+						},
+						{
+							"key": "limit",
+							"value": "50"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Inventory",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://protected-badlands-15455.herokuapp.com/api/inventories/5331",
+					"protocol": "https",
+					"host": [
+						"protected-badlands-15455",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"inventories",
+						"5331"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Adjust Quantity",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"adjustment\": -100\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://protected-badlands-15455.herokuapp.com/api/inventories/5331/adjust",
+					"protocol": "https",
+					"host": [
+						"protected-badlands-15455",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"inventories",
+						"5331",
+						"adjust"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search Products",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://protected-badlands-15455.herokuapp.com/api/products/search?type=Clothing",
+					"protocol": "https",
+					"host": [
+						"protected-badlands-15455",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"products",
+						"search"
+					],
+					"query": [
+						{
+							"key": "type",
+							"value": "Clothing"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Product",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://protected-badlands-15455.herokuapp.com/api/products/2",
+					"protocol": "https",
+					"host": [
+						"protected-badlands-15455",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"products",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Product",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Test Product\",\n    \"description\": \"Here is a test description.\",\n    \"style\": \"Girl next door\",\n    \"type\": \"clothing\",\n    \"brand\": \"Ted Baker\",\n    \"shipping_price_cents\": 100\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://protected-badlands-15455.herokuapp.com/api/products",
+					"protocol": "https",
+					"host": [
+						"protected-badlands-15455",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Product Copy",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Test Product\",\n    \"description\": \"Here is a test description.\",\n    \"style\": \"Girl next door\",\n    \"type\": \"clothing\",\n    \"brand\": \"Ted Baker\",\n    \"shipping_price_cents\": 100\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://protected-badlands-15455.herokuapp.com/api/products",
+					"protocol": "https",
+					"host": [
+						"protected-badlands-15455",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Product",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Test Product UPDATED\",\n    \"description\": \"Here is a test description. UPDATED\",\n    \"style\": \"Girl next door\",\n    \"type\": \"clothing\",\n    \"brand\": \"Ted Baker\",\n    \"shipping_price_cents\": 100\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://protected-badlands-15455.herokuapp.com/api/products/2",
+					"protocol": "https",
+					"host": [
+						"protected-badlands-15455",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"products",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "larhonda.hovis@foo.com",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "cghmpbKXXK",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "https://protected-badlands-15455.herokuapp.com/api/auth",
+					"protocol": "https",
+					"host": [
+						"protected-badlands-15455",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"auth"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2MTg3MzEyNDMsImlhdCI6MTYxODcyNzY0MywiaXNzIjoiUFJPRF9JTlZFTlRPUlkiLCJ1c2VyIjp7ImlkIjoyM319.vm3cvxXA2UBX1p-z0AYQXSutHlfO8PJdNdQDy16TMQ8",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
