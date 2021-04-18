@@ -1,0 +1,25 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+adam:
+  id: 1
+  email: adam@test.com
+  name: Adam
+  shop_name: Adam's shop
+  superadmin: false
+  enabled: true
+  shop_domain: adamshop
+  encrypted_password: <%= User.new.send(:password_digest, '123greetings') %>
+  created_at: <%= 5.day.ago.to_s(:db) %>
+  updated_at: <%= 5.day.ago.to_s(:db) %>
+
+dipper:
+  id: 2
+  email: dipper@test.com
+  name: Dipper
+  shop_name: Dipper's shop
+  superadmin: false
+  enabled: true
+  shop_domain: dippershop
+  encrypted_password: <%= User.new.send(:password_digest, '123dipper') %>
+  created_at: <%= 5.day.ago.to_s(:db) %>
+  updated_at: <%= 5.day.ago.to_s(:db) %>

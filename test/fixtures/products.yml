@@ -1,0 +1,27 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+clothing:
+  name: "Colthing Product"
+  description: MyText
+  shipping_price_cents: 1
+  note: MyText
+  url: MyString
+  created_at: <%= 5.day.ago.to_s(:db) %>
+  updated_at: <%= 5.day.ago.to_s(:db) %>
+  user: adam
+  product_brand: adamsclothing
+  product_style: one
+  product_type: one
+
+toy:
+  name: "Toy Product"
+  description: MyText
+  shipping_price_cents: 1
+  note: MyText
+  url: MyString
+  created_at: <%= 5.day.ago.to_s(:db) %>
+  updated_at: <%= 5.day.ago.to_s(:db) %>
+  user: dipper
+  product_brand: dipperstoys
+  product_style: two
+  product_type: two

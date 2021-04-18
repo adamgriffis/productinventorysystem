@@ -6,6 +6,10 @@ require "active_support/core_ext/integer/time"
 # and recreated between test runs. Don't rely on the data there!
 
 Rails.application.configure do
+
+  ENV['JWT_SECRET']="TEST_CRAZY_SECRET" 
+  ENV['JWT_ISSUER']="TEST_PROD_INVENTORY"
+  
   # Settings specified here will take precedence over those in config/application.rb.
 
   config.cache_classes = false
