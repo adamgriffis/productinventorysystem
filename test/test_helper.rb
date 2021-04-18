@@ -5,8 +5,6 @@ require "rails/test_help"
 require 'factory_bot_rails'
 
 class ActiveSupport::TestCase
-  FactoryBot.find_definitions
-
   # Run tests in parallel with specified workers
   parallelize(workers: :number_of_processors)
 

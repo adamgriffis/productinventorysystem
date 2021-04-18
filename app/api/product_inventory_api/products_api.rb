@@ -25,6 +25,15 @@ module ProductInventoryApi
         create_endpoint(Product, params)
       end
 
+      # search products
+      desc 'Search the products by search keys'
+      params do 
+        use :search_terms
+        use :pagination
+      end
+      get 'search' do 
+        list_endpoint(Product, product_json_options, base_record_set: Product.search_style(params[:style]).search_brand(params[:brand]).search_type(params[:type]))
+      end
 
       params do
         requires :id, type: Integer, desc: 'The product ID.'

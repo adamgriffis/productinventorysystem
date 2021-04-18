@@ -17,6 +17,54 @@ class Product < ApplicationRecord
   alias_attribute :product_name, :name
   alias_attribute :shipping_price, :shipping_price_cents
 
+  scope :search_style, -> (style_string) do
+    result = self
+
+    unless style_string.blank?
+      style = ProductStyle.where(name: style_string).first
+
+      if style.nil? # did we find the style?
+        result = result.where("1=0")
+      else
+        result = result.where(product_style: style)
+      end
+    end
+
+    result
+  end
+
+  scope :search_brand, -> (brand_string) do 
+    result = self
+
+    unless brand_string.blank?
+      brand = ProductBrand.where(name: brand_string).first
+
+      if brand.nil? # did we find the brand?
+        result = result.where("1=0")
+      else
+        result = result.where(product_brand: brand)
+      end
+    end
+
+    result
+  end
+
+  scope :search_type, -> (type_string) do 
+    result = self
+
+    unless type_string.blank?
+      type = ProductType.where(name: type_string).first
+
+      if type.nil? # did we find the brand?
+        result = result.where("1=0")
+      else
+        result = result.where(product_type: type)
+      end
+    end
+
+    result
+  end
+
   # these helpers are to allow 
   def type
     product_type.name

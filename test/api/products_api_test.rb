@@ -19,6 +19,46 @@ class ProductsApiTest < ActionDispatch::IntegrationTest
     assert JSON.parse(response.body).length == 1
   end
 
+  test "GET /api/products/search" do # cases where we find results
+
+    get "/api/products/search", headers: { "Authorization": "Bearer #{@jwt_token}"}, params: {type: @clothing.type}
+    
+    assert_response :success
+    assert !response.body.nil?
+
+    assert JSON.parse(response.body).include?(@clothing.as_json({only: [:id, :description, :created_at, :updated_at, :url], methods: [:product_name, :type, :style, :brand, :shipping_price, :note]}))
+    assert JSON.parse(response.body).length == 1
+
+    get "/api/products/search", headers: { "Authorization": "Bearer #{@jwt_token}"}, params: {type: @clothing.type, style: @clothing.style}
+
+    assert_response :success
+    assert !response.body.nil?
+
+    assert JSON.parse(response.body).include?(@clothing.as_json({only: [:id, :description, :created_at, :updated_at, :url], methods: [:product_name, :type, :style, :brand, :shipping_price, :note]}))
+    assert JSON.parse(response.body).length == 1
+
+    get "/api/products/search", headers: { "Authorization": "Bearer #{@jwt_token}"}, params: {brand: @clothing.brand}
+    
+    assert_response :success
+    assert !response.body.nil?
+
+    assert JSON.parse(response.body).include?(@clothing.as_json({only: [:id, :description, :created_at, :updated_at, :url], methods: [:product_name, :type, :style, :brand, :shipping_price, :note]}))
+    assert JSON.parse(response.body).length == 1
+
+    @new_clothing = @clothing.dup
+    @new_clothing.style = "New Style"
+    @new_clothing.save
+
+    # new clothing will be excluded because of the style search
+    get "/api/products/search", headers: { "Authorization": "Bearer #{@jwt_token}"}, params: {brand: @clothing.brand, style: @clothing.style}
+    
+    assert_response :success
+    assert !response.body.nil?
+
+    assert JSON.parse(response.body).include?(@clothing.as_json({only: [:id, :description, :created_at, :updated_at, :url], methods: [:product_name, :type, :style, :brand, :shipping_price, :note]}))
+    assert JSON.parse(response.body).length == 1
+  end
+
   test "GET /api/products/id" do
 
     get "/api/products/#{@clothing.id}", headers: { "Authorization": "Bearer #{@jwt_token}"}

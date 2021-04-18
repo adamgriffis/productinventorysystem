@@ -1,6 +1,4 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-require 'test_helper'
-
 FactoryBot.define do
   factory :clothing, class: Product do 
     name {"Clothing Product"}
