@@ -19,7 +19,7 @@ module ProductInventoryApi
       # POST /products
       desc 'Create a product with the given information.'
       params do
-        use :product_create_update_params
+        use :product_create_params
       end
       post do
         create_endpoint(Product, params)
@@ -50,7 +50,7 @@ module ProductInventoryApi
         # put /products/id
         desc 'updates a product with the given information.'
         params do
-          use :product_create_update_params
+          use :product_update_params
         end
         put do
           update_endpoint(Product, params)

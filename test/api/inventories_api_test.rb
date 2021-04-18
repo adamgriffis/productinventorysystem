@@ -215,6 +215,8 @@ class InventoriesApiTest < ActionDispatch::IntegrationTest
     assert_response :error 
   end
 
+  # this is a slow test, but I thought this was a really important thing to hit hard. You can make it run much faster by changing line 225 to "100.times", 
+  # right now it's 10 thread executing 100 adjustments, that would make it 10 x 10 
   test "PUT /api/inventories/id/adjust with high concurrency" do 
     @clothing_small.update(quantity: 100000)
 

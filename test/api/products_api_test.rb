@@ -120,7 +120,7 @@ class ProductsApiTest < ActionDispatch::IntegrationTest
   end
 
   test "PUT /api/products failures" do
-    put "/api/products/#{@clothing.id}", headers: { "Authorization": "Bearer #{@jwt_token}"}, params: {type: "New Type", style: "New Style", brand: "New Brand", shipping_price_cents: "200", note: "New Note", desc: "New Desc"}
+    put "/api/products/#{@clothing.id}", headers: { "Authorization": "Bearer #{@jwt_token}"}, params: {type: "New Type", style: "New Style", brand: "New Brand", shipping_price_cents: -10, note: "New Note", desc: "New Desc"}
   
     assert_response :error
   end
