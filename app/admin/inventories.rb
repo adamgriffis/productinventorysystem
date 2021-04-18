@@ -38,10 +38,12 @@ ActiveAdmin.register Inventory do
 
       inv.quantity = row['quantity']
       inv.color = row['color']
+      inv.sku = row['sku']
       inv.size = row['size']
       inv.weight = row['weight']
       inv.price_cents = row['price_cents']
       inv.sale_price_cents = row['sale_price_cents']
+      inv.cost_cents = row['cost_cents']
       inv.length = row['length']
       inv.width = row['width']
       inv.height = row['height']

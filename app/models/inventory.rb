@@ -4,11 +4,10 @@ class Inventory < ApplicationRecord
   belongs_to :user
   belongs_to :product
 
-  validates_uniqueness_of :sku, scope: :user_id
-
   validates :size, presence: true, length: {minimum: 1}
   validates :color, presence: true, length: {minimum: 1}
   validates_presence_of  :quantity
+  validates_presence_of  :sku
   validates_presence_of  :weight
   validates_presence_of  :length
   validates_presence_of  :width
@@ -20,7 +19,7 @@ class Inventory < ApplicationRecord
   validates :quantity, numericality: { greater_than_or_equal_to: 0 }
 
   validates :width, numericality: { greater_than: 0 }
-  validates :weight, numericality: { greater_than: 0 }
+  validates :weight, numericality: { greater_than_or_equal_to: 0 }
   validates :length, numericality: { greater_than: 0 }
   validates :height, numericality: { greater_than: 0 }
 
