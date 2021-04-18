@@ -13,6 +13,7 @@ class Product < ApplicationRecord
   validates_presence_of  :product_type
   validates_presence_of :product_brand
   validates_presence_of  :product_style
+  validates :shipping_price_cents, numericality: { greater_than_or_equal_to: 0 }
 
   alias_attribute :product_name, :name
   alias_attribute :shipping_price, :shipping_price_cents

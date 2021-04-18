@@ -7,3 +7,6 @@ Just keeping a running list of assumptions / simplications I'm making here
 - Here's a ERD I put together for the models: https://lucid.app/lucidchart/invitations/accept/inv_f304912b-2399-40e8-9f34-314e28b05a45?viewport_loc=-11%2C-1383%2C2439%2C1080%2C0_0
 - The fact that the style / type / brand keys in the search don't specify wildcards makes me think I'm right that they dropdowns rather than free entry so if a brand / type / etc is entered that doesn't exist I'm reading that as a failure
 - the search endpoint is case sensitive
+
+- I think size / color on inventory should be separate classes like we did for brand, style, etc but in the interest of time I've left them the same.
+- In the lucid chart linked I went into a path I initially planned and subsequently abandoned. I'd be glad to talk more about that if you'd like (or can give a cleaned up "final" version if you'd prefer)
