@@ -21,7 +21,7 @@
 - My initial plan was to consume the product / inventory CSVs using the API itself, so write a script that read the CSV and wrote the records in using the API. I didn't do that because the CSVs had IDs in them, I was worried there'd be tests on your end that would require the IDs to match. I don't think an API should allow consumers to specify the ID of its new records so I didn't want to build that into the API. 
 
 
-## Follow-ups / TODOs
+## Follow-ups / TODOs if this was real
 - I didn't feel confident on what the unique constraints should be on inventory / product so I didn't add backing DB constraints. I initially though product name / sku would have to be unique per-account but that was incorrect in the full dataset. Once I understood the constraints here I'd fix that.
 - I'd also like to cleanup the size / color / type / branch / style fields -- I think they should all be separate entities but probably some should be system level and some should be account level. 
 - I wanted to publish a Swagger server too but didn't get to it. I'd rather spend more time on Part 2 so dropping that for now.
