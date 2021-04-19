@@ -14,7 +14,7 @@ module ProductInventoryApi
         requires :length, type: Integer, desc: "Item length"
         requires :height, type: Integer, desc: "Item height"
         requires :width, type: Integer, desc: "Item width"
-        requires :note, type: String, desc: "Item note"
+        optional :note, type: String, desc: "Item note"
         requires :price_cents, type: Integer, desc: "Price of the sku"
         requires :sale_price_cents, type: Integer, desc: "Price of the sku on sale"
         requires :cost_cents, type: Integer, desc: "cost of the sku"

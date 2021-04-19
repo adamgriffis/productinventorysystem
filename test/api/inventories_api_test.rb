@@ -85,7 +85,7 @@ class InventoriesApiTest < ActionDispatch::IntegrationTest
         cost_cents: 20
       }
   
-    assert_response :error 
+    assert_response 400
 
     post "/api/inventories", headers: { "Authorization": "Bearer #{@jwt_token}"}, params: {
         product_id: @clothing_small.product.id, 
@@ -208,11 +208,11 @@ class InventoriesApiTest < ActionDispatch::IntegrationTest
 
     put "/api/inventories/#{@clothing_small.id}/adjust", headers: { "Authorization": "Bearer #{@jwt_token}"}, params: {adjustment: (@clothing_small.quantity + 1)*-1}
   
-    assert_response :error 
+    assert_response 400
 
     put "/api/inventories/#{@clothing_small.id}/adjust", headers: { "Authorization": "Bearer #{@jwt_token}"}, params: {}
   
-    assert_response :error 
+    assert_response 400
   end
 
   # this is a slow test, but I thought this was a really important thing to hit hard. You can make it run much faster by changing line 225 to "100.times", 

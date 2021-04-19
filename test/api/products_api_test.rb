@@ -101,7 +101,7 @@ class ProductsApiTest < ActionDispatch::IntegrationTest
 
     post "/api/products", headers: { "Authorization": "Bearer #{@jwt_token}"}, params: {type: "New Type", style: "New Style", brand: "New Brand", shipping_price_cents: "200", note: "New Note", desc: "New Desc"}
   
-    assert_response :error
+    assert_response 400
   end
 
 

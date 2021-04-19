@@ -4,6 +4,10 @@ module ProductInventoryApi
     # Contains a helper for raising API errors in our standardized format.
     module ErrorsHelper
       extend Grape::API::Helpers
+
+      def user_not_authenticated
+        do_error!('auth', 401, 'Only authenticated users can access this resource. Did you remember to pass an email and token?')
+      end
       
       def do_error!(type, code, message, details: [])
         code ||= 500;
