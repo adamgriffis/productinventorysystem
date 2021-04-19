@@ -223,7 +223,7 @@ class InventoriesApiTest < ActionDispatch::IntegrationTest
     # generate a random batch of adjustments 
     adjustments = []
 
-    1000.times do 
+    500.times do 
       adjustments << rand(-20..20) # 100 adjusments between -10 and 30
     end
 

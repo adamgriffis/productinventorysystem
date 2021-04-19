@@ -18,7 +18,7 @@
 					}
 				],
 				"url": {
-					"raw": "https://protected-badlands-15455.herokuapp.com/api/products?page=2&limit=50",
+					"raw": "https://protected-badlands-15455.herokuapp.com/api/products?page=2&limit=10",
 					"protocol": "https",
 					"host": [
 						"protected-badlands-15455",
@@ -36,7 +36,7 @@
 						},
 						{
 							"key": "limit",
-							"value": "50"
+							"value": "10"
 						}
 					]
 				}
@@ -80,6 +80,35 @@
 				"method": "GET",
 				"header": [],
 				"url": {
+					"raw": "localhost:3000/api/inventories/1",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"inventories",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Inventory",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"sku\": \"NEWSKU\",\n    \"quantity\": 200\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
 					"raw": "https://protected-badlands-15455.herokuapp.com/api/inventories/5331",
 					"protocol": "https",
 					"host": [
@@ -103,7 +132,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"adjustment\": -100\n}",
+					"raw": "{\n    \"adjustment\": -10\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -162,7 +191,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://protected-badlands-15455.herokuapp.com/api/products/2",
+					"raw": "https://protected-badlands-15455.herokuapp.com/api/products/",
 					"protocol": "https",
 					"host": [
 						"protected-badlands-15455",
@@ -172,7 +201,7 @@
 					"path": [
 						"api",
 						"products",
-						"2"
+						""
 					]
 				}
 			},
@@ -209,13 +238,13 @@
 			"response": []
 		},
 		{
-			"name": "Create Product Copy",
+			"name": "Create Inventory",
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"name\": \"Test Product\",\n    \"description\": \"Here is a test description.\",\n    \"style\": \"Girl next door\",\n    \"type\": \"clothing\",\n    \"brand\": \"Ted Baker\",\n    \"shipping_price_cents\": 100\n}",
+					"raw": "{\n    \"product_id\": 537,\n    \"quantity\": 100,\n    \"color\": \"Aquamarine\",\n    \"size\": \"XXL\",\n    \"sku\": \"AQXXL\",\n    \"weight\": 2,\n    \"height\": 3,\n    \"length\": 4,\n    \"width\": 5,\n    \"price_cents\": 200,\n    \"sale_price_cents\": 140,\n    \"cost_cents\": 75\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -223,7 +252,7 @@
 					}
 				},
 				"url": {
-					"raw": "https://protected-badlands-15455.herokuapp.com/api/products",
+					"raw": "https://protected-badlands-15455.herokuapp.com/api/inventories",
 					"protocol": "https",
 					"host": [
 						"protected-badlands-15455",
@@ -232,7 +261,7 @@
 					],
 					"path": [
 						"api",
-						"products"
+						"inventories"
 					]
 				}
 			},
@@ -253,7 +282,7 @@
 					}
 				},
 				"url": {
-					"raw": "https://protected-badlands-15455.herokuapp.com/api/products/2",
+					"raw": "https://protected-badlands-15455.herokuapp.com/api/products/3",
 					"protocol": "https",
 					"host": [
 						"protected-badlands-15455",
@@ -263,7 +292,7 @@
 					"path": [
 						"api",
 						"products",
-						"2"
+						"3"
 					]
 				}
 			},
@@ -276,13 +305,13 @@
 					"type": "basic",
 					"basic": [
 						{
-							"key": "username",
-							"value": "larhonda.hovis@foo.com",
+							"key": "password",
+							"value": "cghmpbKXXK",
 							"type": "string"
 						},
 						{
-							"key": "password",
-							"value": "cghmpbKXXK",
+							"key": "username",
+							"value": "larhonda.hovis@foo.com",
 							"type": "string"
 						}
 					]
@@ -311,7 +340,7 @@
 		"bearer": [
 			{
 				"key": "token",
-				"value": "eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2MTg3MzEyNDMsImlhdCI6MTYxODcyNzY0MywiaXNzIjoiUFJPRF9JTlZFTlRPUlkiLCJ1c2VyIjp7ImlkIjoyM319.vm3cvxXA2UBX1p-z0AYQXSutHlfO8PJdNdQDy16TMQ8",
+				"value": "eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2MTg4MDgwNTksImlhdCI6MTYxODgwNDQ1OSwiaXNzIjoiUFJPRF9JTlZFTlRPUlkiLCJ1c2VyIjp7ImlkIjoyM319.-msB3O7Y1Zgs1pEzD_G-MqfqE4X7d-CPcDvH-3JBoN4",
 				"type": "string"
 			}
 		]
