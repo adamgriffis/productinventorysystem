@@ -16,52 +16,32 @@ class Product < ApplicationRecord
   alias_attribute :product_name, :name
   alias_attribute :shipping_price, :shipping_price_cents
 
-  scope :search_style, -> (style_string) do
+  scope :search_relation, -> (relation_clazz, relation_string) do 
     result = self
 
-    unless style_string.blank?
-      style = ProductStyle.where(name: style_string).first
+    unless relation_string.blank?
+      relation = relation_clazz.where(name: relation_string).first
 
-      if style.nil? # did we find the style?
-        result = result.where("1=0")
+      if relation.nil? # did we find the relation? 
+        result = result.none
       else
-        result = result.where(product_style: style)
+        result = result.where(relation_clazz.name.underscore => relation)
       end
     end
 
     result
+  end
+
+  scope :search_style, -> (style_string) do
+    search_relation(ProductStyle, style_string)
   end
 
   scope :search_brand, -> (brand_string) do 
-    result = self
-
-    unless brand_string.blank?
-      brand = ProductBrand.where(name: brand_string).first
-
-      if brand.nil? # did we find the brand?
-        result = result.where("1=0")
-      else
-        result = result.where(product_brand: brand)
-      end
-    end
-
-    result
+    search_relation(ProductBrand, brand_string)
   end
 
   scope :search_type, -> (type_string) do 
-    result = self
-
-    unless type_string.blank?
-      type = ProductType.where(name: type_string).first
-
-      if type.nil? # did we find the brand?
-        result = result.where("1=0")
-      else
-        result = result.where(product_type: type)
-      end
-    end
-
-    result
+    search_relation(ProductType, type_string)
   end
 
   # these helpers are to allow 
