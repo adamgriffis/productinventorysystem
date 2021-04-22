@@ -31,7 +31,7 @@ class Inventory < ApplicationRecord
     end
   end
 
-  def adjust_quqnaity!(adjustment)
+  def adjust_quantity!(adjustment)
     # we need to lock before we read the quantity because otherwise the adjustment could be applying to an old quantity
     self.with_lock do # this creates a FOR UPDATE lock and a transaction for the item, the nested transaction in update_quantity doesn't matter, the outside transaction will "win"
       existing_quantity = self.quantity

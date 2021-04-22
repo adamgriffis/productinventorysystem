@@ -56,7 +56,7 @@ module ProductInventoryApi
         put 'adjust' do 
           if params.has_key?(:adjustment)
             inventory = Inventory.find params[:id]
-            inventory.adjust_quqnaity!(params[:adjustment])
+            inventory.adjust_quantity!(params[:adjustment])
           end
         end
       end
